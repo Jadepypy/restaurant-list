@@ -2,8 +2,26 @@ const express = require('express')
 const app = express()
 const exphbs = require('express-handlebars')
 const restaurants = require('./restaurant.json')
+const mongoose = require('mongoose')
+mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true})
 
 const port = 3000
+const db = mongoose.connection
+const Schema = mongoose.Schema
+const restaurantSchema = new Schema({
+  name: {
+    type: String,
+    reauired: true
+  }
+})
+module.exports = mongoose.model('Restaurnat', restaurantSchema)
+
+db.on('error', () => {
+  console.log('mongodb roor!')
+})
+db.once('open', () => {
+  console.log('mongodb connected!')
+})
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
