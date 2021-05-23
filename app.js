@@ -1,20 +1,13 @@
 const express = require('express')
 const app = express()
 const exphbs = require('express-handlebars')
-const restaurants = require('./restaurant.json')
+const Restaurant = require('./models/restaurant')
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true})
 
 const port = 3000
 const db = mongoose.connection
-const Schema = mongoose.Schema
-const restaurantSchema = new Schema({
-  name: {
-    type: String,
-    reauired: true
-  }
-})
-module.exports = mongoose.model('Restaurnat', restaurantSchema)
+
 
 db.on('error', () => {
   console.log('mongodb roor!')
@@ -30,7 +23,10 @@ app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 
 app.get('/', (req, res) =>{
-  res.render('index', {restaurants: restaurants.results})
+  Restaurant.find()
+    .lean()
+    .then(restaurants => res.render('index', {restaurants: restaurants}))
+    .catch(error => console.log(error))
 })
 app.get('/restaurants/:id', (req, res) =>{
   const restaurant = restaurants.results.find((item) => item.id.toString() === req.params.id)
