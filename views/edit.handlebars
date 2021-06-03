@@ -7,7 +7,7 @@
         <div class="card-body">
           <h5 class="card-title">修改餐廳</h5>
           <hr>
-          <form method="POST" action="/restaurants/{{restaurant._id}}/edit">
+          <form method="POST" action="/restaurants/{{restaurant._id}}?_method=PUT">
             <div class="form-group form-row">
               <label for="name" class="col-md-4 col-form-label">
                 <i class="fas fa-store"></i> 餐廳名稱

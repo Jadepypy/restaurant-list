@@ -39,7 +39,7 @@
             <div class="text-right mr-2 mb-2">
               <a href="./restaurants/{{this._id}}" class="text-muted"><u class="text-muted">detail</u></a>
               <a href="./restaurants/{{this._id}}/edit" class="text-muted "><u>edit</u></a>
-              <form action="./restaurants/{{this._id}}/delete" method="POST" style="display: inline;">
+              <form action="./restaurants/{{this._id}}?_method=DELETE" method="POST" style="display: inline;">
                 <button type="submit" class="btn-outline-secondary">delete</button>
               </form>
             </div>
