@@ -19,11 +19,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(methodOverride('_method'))
 app.use(routes)
 
-app.get('/search', (req, res) =>{
-  const keyword = req.query.keyword
-  const searchResult = restaurants.results.filter((item) => item.name.toLowerCase().includes(keyword.toLowerCase()))
-  res.render('index', {restaurants: searchResult, keyword: keyword})
-})
+
 
 app.listen(port, () =>{
   console.log(`Express is running on http:/localhost:${port}`)
